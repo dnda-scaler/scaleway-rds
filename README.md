@@ -11,3 +11,5 @@ In that case , a scaleway instance have been deployed with the psql client but t
 3. Fill the terraform.tfvars
 4. terraform init 
 5. terraform apply
+
+Database can be access using psql
