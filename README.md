@@ -1,5 +1,5 @@
 # Goal
-Set of resources to help for creating Scaleway RDS resources through terraform.
+Set of terraform resources to help for creating Scaleway RDS resources through terraform.
 3 resources have been provided :
 - RDS without VPC create a database that can be access through internet
 - RDS with VPC create a database that can be access Scaleway Private Network
