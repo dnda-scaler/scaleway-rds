@@ -1,0 +1,8 @@
+allowed_ips=
+username=
+password=
+node_type="DB-DEV-S"
+db_name="test_rdb"
+engine="PostgreSQL-14"
+is_ha_cluster=false
+read_replicas=1
