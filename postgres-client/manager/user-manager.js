@@ -9,20 +9,25 @@ class UserManager {
         this.writeManager=writeManager;
     }
     async getClient(writeRider){
-
         if(!this.pool){
-            this.pool= new Pool({
-            user: config.get("username"),
-            password: config.get("password"),
-            host: writeRider?config.get("db_host"):config.get("read_replica_ip"),
-            database: config.get("db_name"),               
-            port: writeRider?config.get("db_port"):config.get("read_replica_port")
-        })
-        if(writeRider){
-            await this.initializeDB();
+            const dbConfig={
+                user: config.get("username"),
+                password: config.get("password"),
+                host: config.get("db_host"),
+                database: config.get("db_name"),               
+                port: config.get("db_port")
+            }
+            //SELECT use read replica if there is one 
+            if(!writeRider && config.get("has_read_replica")){
+                dbConfig.host=config.get("read_replica_ip");
+                dbConfig.port=config.get("read_replica_port");
+            }
+            this.pool= new Pool(dbConfig);
+            if(writeRider){
+                await this.initializeDB();
+            }
         }
-     }
-     return this.pool;
+        return this.pool;
     }
 
     async initializeDB(){

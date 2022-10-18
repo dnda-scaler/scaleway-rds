@@ -13,3 +13,6 @@ In that case , a scaleway instance have been deployed with the psql client but t
 5. terraform apply
 
 Database can be access using psql
+
+
+Fichier config in OUTPUTS OF TERRAFORM for 01-without-vpc
