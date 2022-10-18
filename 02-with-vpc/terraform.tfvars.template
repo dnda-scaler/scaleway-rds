@@ -1,0 +1,9 @@
+username=""
+password=""
+node_type="DB-DEV-S"
+db_name="test_rdb"
+engine="PostgreSQL-14"
+is_ha_cluster=false
+read_replicas=1
+db_private_ip_cidr="192.168.0.254/24"
+private_network_cidr="192.168.0.0/24"

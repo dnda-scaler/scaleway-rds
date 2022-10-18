@@ -1,7 +1,3 @@
-variable "allowed_ips" {
-  type    = list(string)
-  default = []
-}
 variable "username" {
   type = string
 }
@@ -17,21 +13,25 @@ variable "db_name" {
   default = "test_rdb"
 }
 variable "engine" {
-  type = string
+  type    = string
+  default = "PostgreSQL-14"
 }
 
 variable "is_ha_cluster" {
-  type = bool
+  type    = bool
+  default = false
 }
 
 variable "read_replicas" {
   type = number
 }
 
-variable "private_network_config" {
-  type = list(object({
-    id     = string,
-    ip_net = string,
-  }))
-  default = []
+variable "db_private_ip_cidr" {
+  type=string
+  default ="192.168.0.254/24"
+}
+
+variable "private_network_cidr" {
+  type=string
+  default ="192.168.0.0/24"
 }

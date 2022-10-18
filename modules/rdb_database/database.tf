@@ -6,10 +6,17 @@ resource "scaleway_rdb_instance" "rdb_database" {
   disable_backup = true
   user_name      = var.username
   password       = var.password
+  dynamic "private_network"{
+    for_each = var.private_network_config
+    content{
+        ip_net = private_network.value.ip_net
+        pn_id = private_network.value.id
+    }
+  }
 }
 resource "scaleway_rdb_database" "main" {
-  instance_id    = scaleway_rdb_instance.rdb_database.id
-  name           = var.db_name
+  instance_id = scaleway_rdb_instance.rdb_database.id
+  name        = var.db_name
 }
 
 resource "scaleway_rdb_privilege" "priv" {
@@ -18,11 +25,11 @@ resource "scaleway_rdb_privilege" "priv" {
   database_name = scaleway_rdb_database.main.name
   permission    = "all"
 
-  depends_on = [ scaleway_rdb_database.main]
+  depends_on = [scaleway_rdb_database.main]
 }
 
-resource scaleway_rdb_read_replica "direct_replica" {
-  count=var.read_replicas
+resource "scaleway_rdb_read_replica" "direct_replica" {
+  count       = var.read_replicas
   instance_id = scaleway_rdb_instance.rdb_database.id
   direct_access {}
 }
